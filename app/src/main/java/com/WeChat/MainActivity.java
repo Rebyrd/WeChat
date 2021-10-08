@@ -25,7 +25,7 @@ import java.util.List;
  * @description 实现微信界面
  * @author      Rebyrd
  * @createDate  2021/10/6
- * @version     v0.01
+ * @version     v0.1
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
