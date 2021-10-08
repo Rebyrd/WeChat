@@ -7,6 +7,6 @@
 
 [activity_main.xml](WeChat/tree/master/app/src/main/res/layout/activity_main.xml) 为主界面
 
-[bottom.xml](WeChat/blob/tree/app/src/main/res/layout/bottom.xml) 为底部标签控件
+[bottom.xml](WeChat/tree/master/app/src/main/res/layout/bottom.xml) 为底部标签控件
 
-[top.xml](WeChat/blob/tree/app/src/main/res/layout/top.xml) 为title栏
+[top.xml](WeChat/tree/master/app/src/main/res/layout/top.xml) 为title栏
