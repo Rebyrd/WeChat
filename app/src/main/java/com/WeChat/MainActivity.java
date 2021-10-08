@@ -19,13 +19,13 @@ import java.util.List;
 
 
 /**
- * @projectName（项目名称）: WeChat
- * @package（包）: com.WeChat
- * @className（类名称）: MainActivity
- * @description（类描述）: 实现微信界面
- * @author（创建人）: Rebyrd
- * @createDate（创建时间）: 2021/10/6
- * @version（版本）: v0.01
+ * @projectName WeChat
+ * @package     com.WeChat
+ * @className:  MainActivity
+ * @description 实现微信界面
+ * @author      Rebyrd
+ * @createDate  2021/10/6
+ * @version     v0.01
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
