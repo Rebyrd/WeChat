@@ -25,12 +25,10 @@ import java.util.List;
  * @description 实现微信界面
  * @author      Rebyrd
  * @createDate  2021/10/6
- * @version     v0.1
+ * @version     v0.01
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    /** tab的linerlayout */
-    private LinearLayout tab_message, tab_contact,tab_find,tab_config;
     private Tab message,contact,find,config;
     private ManagerTab managerTab;
 
@@ -43,23 +41,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 获取xml资源
-        tab_message = findViewById(R.id.tab_message);
-        tab_contact = findViewById(R.id.tab_contact);
-        tab_find    = findViewById(R.id.tab_find);
-        tab_config  = findViewById(R.id.tab_config);
+        // 构造tab对象
+        message =new Tab(new fragment_message() ,findViewById(R.id.tab_message),findViewById(R.id.txt_tab_message) ,findViewById(R.id.icon_message),R.color.selected,R.color.common);
+        contact =new Tab(new fragment_contact() ,findViewById(R.id.tab_contact),findViewById(R.id.txt_tab_contact) ,findViewById(R.id.icon_contact),R.color.selected,R.color.common);
+        find    =new Tab(new fragment_find()    ,findViewById(R.id.tab_find)   ,findViewById(R.id.txt_tab_find)    ,findViewById(R.id.icon_find)   ,R.color.selected,R.color.common);
+        config  =new Tab(new fragment_config()  ,findViewById(R.id.tab_config) ,findViewById(R.id.txt_tab_config)  ,findViewById(R.id.icon_config) ,R.color.selected,R.color.common);
 
         // 监听tab (本质上是监听tab的linerlayout)
-        tab_message .setOnClickListener(this);
-        tab_contact .setOnClickListener(this);
-        tab_find    .setOnClickListener(this);
-        tab_config  .setOnClickListener(this);
-
-        // 构造tab对象
-        message =new Tab(new fragment_message() ,tab_message,findViewById(R.id.txt_tab_message) ,findViewById(R.id.icon_message),R.color.selected,R.color.common);
-        contact =new Tab(new fragment_contact() ,tab_contact,findViewById(R.id.txt_tab_contact) ,findViewById(R.id.icon_contact),R.color.selected,R.color.common);
-        find    =new Tab(new fragment_find()    ,tab_find   ,findViewById(R.id.txt_tab_find)    ,findViewById(R.id.icon_find)   ,R.color.selected,R.color.common);
-        config  =new Tab(new fragment_config()  ,tab_config ,findViewById(R.id.txt_tab_config)  ,findViewById(R.id.icon_config) ,R.color.selected,R.color.common);
+        message .linearLayout.setOnClickListener(this);
+        contact .linearLayout.setOnClickListener(this);
+        find    .linearLayout.setOnClickListener(this);
+        config  .linearLayout.setOnClickListener(this);
 
         // 初始化 tab管理器
         managerTab =new ManagerTab(R.id.content, Arrays.asList(message,contact,find,config),getSupportFragmentManager());
