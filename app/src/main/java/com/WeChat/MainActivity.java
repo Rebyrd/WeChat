@@ -1,6 +1,5 @@
 package com.WeChat;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -42,10 +40,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // 构造tab对象
-        message =new Tab(new fragment_message() ,findViewById(R.id.tab_message),findViewById(R.id.txt_tab_message) ,findViewById(R.id.icon_message),R.color.selected,R.color.common);
-        contact =new Tab(new fragment_contact() ,findViewById(R.id.tab_contact),findViewById(R.id.txt_tab_contact) ,findViewById(R.id.icon_contact),R.color.selected,R.color.common);
-        find    =new Tab(new fragment_find()    ,findViewById(R.id.tab_find)   ,findViewById(R.id.txt_tab_find)    ,findViewById(R.id.icon_find)   ,R.color.selected,R.color.common);
-        config  =new Tab(new fragment_config()  ,findViewById(R.id.tab_config) ,findViewById(R.id.txt_tab_config)  ,findViewById(R.id.icon_config) ,R.color.selected,R.color.common);
+        message =new Tab(new fragment_message() ,findViewById(R.id.tab_message),findViewById(R.id.txt_tab_message) ,findViewById(R.id.icon_message),getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
+        contact =new Tab(new fragment_contact() ,findViewById(R.id.tab_contact),findViewById(R.id.txt_tab_contact) ,findViewById(R.id.icon_contact),getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
+        find    =new Tab(new fragment_find()    ,findViewById(R.id.tab_find)   ,findViewById(R.id.txt_tab_find)    ,findViewById(R.id.icon_find)   ,getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
+        config  =new Tab(new fragment_config()  ,findViewById(R.id.tab_config) ,findViewById(R.id.txt_tab_config)  ,findViewById(R.id.icon_config) ,getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
 
         // 监听tab (本质上是监听tab的linerlayout)
         message .linearLayout.setOnClickListener(this);
@@ -166,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          */
         private void switchColor(int color) {
             textView.setTextColor(color);
-            imageView.getDrawable().setTint(color);
+            imageView.getDrawable().mutate().setTint(color);
         }
     }
 

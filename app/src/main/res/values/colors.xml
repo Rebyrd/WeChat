@@ -11,8 +11,9 @@
 
     <color name="besideBackground">#F6F5F5</color>
     <color name="mainBackground">#FFFFFF</color>
-    <color name="selected">#418E44</color>
-    <color name="common">#444444</color>
+    <!--#FF418E44-->
+    <color name="color_selected">#7F0500CA</color>
+    <color name="color_common">#6A6A6A</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>

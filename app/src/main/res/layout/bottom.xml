@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/txt_tab_message"
-                android:textColor="@color/common" />
+                android:textColor="@color/color_common" />
         </LinearLayout>
 
         <LinearLayout
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/txt_tab_contact"
-                android:textColor="@color/common" />
+                android:textColor="@color/color_common" />
         </LinearLayout>
 
         <LinearLayout
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/txt__tab_find"
-                android:textColor="@color/common" />
+                android:textColor="@color/color_common" />
         </LinearLayout>
 
         <LinearLayout
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/txt_tab_config"
-                android:textColor="@color/common" />
+                android:textColor="@color/color_common" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
