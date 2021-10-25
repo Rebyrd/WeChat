@@ -22,8 +22,8 @@ import java.util.List;
  * @className:  MainActivity
  * @description 实现微信界面
  * @author      Rebyrd
- * @createDate  2021/10/6
- * @version     v0.01
+ * @createDate  2021/10/25
+ * @version     v0.02
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -38,18 +38,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // 构造tab对象
-        message =new Tab(new fragment_message() ,findViewById(R.id.tab_message),findViewById(R.id.txt_tab_message) ,findViewById(R.id.icon_message),getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
-        contact =new Tab(new fragment_contact() ,findViewById(R.id.tab_contact),findViewById(R.id.txt_tab_contact) ,findViewById(R.id.icon_contact),getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
-        find    =new Tab(new fragment_find()    ,findViewById(R.id.tab_find)   ,findViewById(R.id.txt_tab_find)    ,findViewById(R.id.icon_find)   ,getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
-        config  =new Tab(new fragment_config()  ,findViewById(R.id.tab_config) ,findViewById(R.id.txt_tab_config)  ,findViewById(R.id.icon_config) ,getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
+        message =new Tab(new Fragment_message() ,findViewById(R.id.tab_message),findViewById(R.id.txt_tab_message) ,findViewById(R.id.icon_message),getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
+        contact =new Tab(new Fragment_contact() ,findViewById(R.id.tab_contact),findViewById(R.id.txt_tab_contact) ,findViewById(R.id.icon_contact),getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
+        find    =new Tab(new Fragment_find()    ,findViewById(R.id.tab_find)   ,findViewById(R.id.txt_tab_find)    ,findViewById(R.id.icon_find)   ,getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
+        config  =new Tab(new Fragment_config()  ,findViewById(R.id.tab_config) ,findViewById(R.id.txt_tab_config)  ,findViewById(R.id.icon_config) ,getResources().getColor(R.color.color_selected),getResources().getColor(R.color.color_common));
 
         // 监听tab (本质上是监听tab的linerlayout)
-        message .linearLayout.setOnClickListener(this);
-        contact .linearLayout.setOnClickListener(this);
-        find    .linearLayout.setOnClickListener(this);
-        config  .linearLayout.setOnClickListener(this);
+        message .setOnClickListener(this);
+        contact .setOnClickListener(this);
+        find    .setOnClickListener(this);
+        config  .setOnClickListener(this);
 
         // 初始化 tab管理器
         managerTab =new ManagerTab(R.id.content, Arrays.asList(message,contact,find,config),getSupportFragmentManager());
@@ -134,6 +133,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.imageView = imageView;
             this.getFocusedColor=getFocusedColor;
             this.lostFocusedColor=lostFocusedColor;
+        }
+
+        public void setOnClickListener(View.OnClickListener onClickListener){
+            linearLayout.setOnClickListener(onClickListener);
         }
 
         /**
