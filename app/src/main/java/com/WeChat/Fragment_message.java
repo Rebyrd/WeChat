@@ -19,33 +19,33 @@ import java.util.Map;
 /**
  * @projectName WeChat
  * @package     com.WeChat
- * @className:
- * @description 实现微信界面
+ * @className:  Fragment_message
+ * @description 消息界面
  * @author      Rebyrd
  * @createDate  2021/10/25
  * @version     v0.02
  */
 public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+
     private RecyclerView recyclerView;
     private RecycleAdapter recycleAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Map<String, List<Object>> resource;
 
+    // recyclerView的item内容
+    private Map<String, List<Object>> resource;
 
     public RecyclerView getRecyclerView() {
         return recyclerView;
     }
-
     public RecycleAdapter getRecycleAdapter() {
         return recycleAdapter;
     }
-
     public Map<String, List<Object>> getResource() {
         return resource;
     }
 
     public Fragment_message() {
-        // Required empty public constructor
+        // 初始化内容
         initItem();
     }
 
@@ -71,12 +71,14 @@ public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnR
             add("你,如果是君临球场的王者的话,我会打倒你,成为站在球场上时间最长的人!");
             add("哒噗");
         }
-            @Override
-            public boolean add(Object o) {
-                if(null!=o&&((String)o).length()>22)o=((String)o).substring(0,22)+"···";
-                return super.add(o);
-            }
-        });
+        /**
+         * 该内容长度限定
+         */
+        @Override
+        public boolean add(Object o) {
+            if(null!=o&&((String)o).length()>22)o=((String)o).substring(0,22)+"···";
+            return super.add(o);
+        }});
         resource.put("image",new ArrayList<Object>(){{
             add(R.mipmap.lufei);
             add(R.mipmap.mingren);
@@ -104,25 +106,35 @@ public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnR
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_message, container, false);
-        RecyclerView recyclerView=view.findViewById(R.id.recyclerView_message);
-        swipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayout);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        // 初始化recycleAdapter
         recycleAdapter=new RecycleAdapter(view.getContext(),R.layout.recycle_item,resource);
+
+        // 初始化recyclerView
+        RecyclerView recyclerView=view.findViewById(R.id.recyclerView_message);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(recycleAdapter);
+
+        // 设置swipeRefresh区域
+        swipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        // 添加空白内容（为了看到recyclerView的刷新）
         for(int i=0;i<4;i++){
             recycleAdapter.insertItem(null,null,0,null,-1);
         }
         return view;
     }
 
+    /**
+     * swipeRefreh 回调
+     * 在这里实现刷新逻辑
+     */
     @Override
     public void onRefresh() {
         // 动态刷新时间 ms
         int delay=2000;
-        /* 可以在这里添加下拉刷新的产生的逻辑
-         * */
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

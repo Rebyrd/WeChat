@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 /**
  * @projectName WeChat
  * @package     com.WeChat
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Tab message,contact,find,config;
     private ManagerTab managerTab;
 
-    /** 当前选中共的tab的linerLayout的ID */
+    // 当前选中共的tab的linerLayout的ID
     private int currentID;
 
 

@@ -8,6 +8,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * @projectName WeChat
+ * @package     com.WeChat
+ * @className:  Context
+ * @description 聊天界面
+ * @author      Rebyrd
+ * @createDate  2021/10/25
+ * @version     v0.02
+ */
 public class Context extends AppCompatActivity {
 
     private TextView name;

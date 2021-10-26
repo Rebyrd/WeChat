@@ -24,16 +24,28 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * @projectName WeChat
+ * @package     com.WeChat
+ * @className:  RecycleAdapter
+ * @description recycleView 及 menu 内容逻辑
+ * @author      Rebyrd
+ * @createDate  2021/10/25
+ * @version     v0.02
+ */
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHolder> {
 
     private Context context;
-    private int itemID;
+    // item资源文件
+    private int itemRes;
     private Map<String, List<Object>> resource;
     private Field mPopupField;
+    // 触控坐标（相对于item控件）
     private float[] toPosition =new float[2];
+    // 菜单对象
     private PopMenu popMenu;
 
+    // 长按事件（监听item 实现弹出菜单）
     private View.OnLongClickListener onLongClickListener=new View.OnLongClickListener() {
 
         @SuppressLint("RestrictedApi")
@@ -51,6 +63,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
             return true;
         }
     };
+    // 点击事件 （实现跳转到特定 Activity）
     private View.OnClickListener onClickListener=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -60,6 +73,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
             context.startActivity(intent);
         }
     };
+    // 触控事件 （获取实时触控坐标）
     private View.OnTouchListener onTouchListener=new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -71,9 +85,14 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
         }
     };
 
-    public RecycleAdapter(Context context, int itemID, Map<String, List<Object>> resource) {
+    /**
+     * @param context context资源
+     * @param itemRes item资源文件
+     * @param resource item内容
+     */
+    public RecycleAdapter(Context context, int itemRes, Map<String, List<Object>> resource) {
         this.context = context;
-        this.itemID=itemID;
+        this.itemRes = itemRes;
         this.resource=resource;
         popMenu =new PopMenu(context);
         try {
@@ -87,7 +106,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(context).inflate(itemID,parent,false));
+        return new MyViewHolder(LayoutInflater.from(context).inflate(itemRes,parent,false));
     }
 
     @Override
@@ -137,10 +156,19 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
         }
     }
 
+    /**
+     * 置顶item
+     * @param position item位置
+     */
     public void setTop(int position){
         moveItem(position,0);
     }
 
+    /**
+     * 将item移动到新的位置 （位置间item向后平移）
+     * @param fromPosition 旧位置
+     * @param toPosition 新位置
+     */
     public void moveItem(int fromPosition,int toPosition) {
         if(fromPosition < resource.get("name").size()&&toPosition < resource.get("name").size()){
 
@@ -157,6 +185,10 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
         }
     }
 
+    /**
+     * 删除item
+     * @param position 删除指定位置的item
+     */
     public void deleteItem(int position){
         if(position < resource.get("name").size()){
             resource.get("name").remove(position);
@@ -183,17 +215,16 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     @SuppressLint("RestrictedApi")
     public class PopMenu extends MenuBuilder {
+        private View anchorView;
+        private boolean isShowing;
+        private PopupWindow popupWindow;
         private LinearLayout linearLayout=new LinearLayout(context){{
             setOrientation(VERTICAL);
             setBackgroundColor(getResources().getColor(R.color.menuBackground));
         }};
 
-        private View anchorView;
-        private boolean isShowing;
-        private PopupWindow popupWindow;
-
         public boolean isShowing() {return isShowing;}
-        public int getHeight(){return size()*123;}  // debug 手动找^-^高度，此时view还未渲染，获取不到高度
+        public int getHeight(){return size()*123;}  // debug 手动找~-~高度，此时view还未渲染，获取不到高度
         public int getWidth(){return linearLayout.getWidth();}
         public void setAnchorView(View anchorView) {this.anchorView = anchorView;}
 
@@ -201,6 +232,10 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
             super(context);
         }
 
+        /**
+         * 初始化菜单
+         * @param menuRes menu资源文件
+         */
         public void init(int menuRes){
             new MenuInflater(context).inflate(menuRes,this);
             for(MenuItem menuItem:getVisibleItems()) {
@@ -211,6 +246,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
                 }};
                 switch (menuItem.getItemId()){
                     case R.id.del_menu:
+                        // 监听删除按钮
                         textView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -220,6 +256,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
                         });
                         break;
                     case R.id.top_menu:
+                        // 监听置顶按钮
                         textView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -235,7 +272,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
             createPopupWindows();
         }
 
-        public void createPopupWindows() {
+        private void createPopupWindows() {
             popupWindow = new PopupWindow(linearLayout);
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
@@ -249,6 +286,11 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
             popupWindow.setElevation(10);
         }
 
+        /**
+         * 显示菜单
+         * @param x x坐标（相对锚点view左下x坐标的偏移）
+         * @param y y坐标（相对锚点view左下y坐标的偏移）
+         */
         public void show(int x,int y){
             if(isShowing)return;
             popupWindow.setFocusable(true);
@@ -256,6 +298,9 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
             isShowing=true;
         }
 
+        /**
+         * 清空内容
+         */
         public void clear(){
             linearLayout.removeAllViews();
             linearLayout.invalidate();
@@ -264,12 +309,18 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
             }
         }
 
+        /**
+         * 关闭菜单
+         */
         public void dismiss(){
             if(isShowing){
                 popupWindow.dismiss();
             }
         }
 
+        /**
+         * @return item数量
+         */
         public int getItemCount(){
             return size();
         }
