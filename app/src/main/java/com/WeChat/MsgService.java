@@ -32,13 +32,13 @@ import okhttp3.Response;
 
 
 /**
- * @projectName WeChat
- * @package     com.WeChat
- * @className:  MsgService
- * @description 网络服务，用于与后端进行数据交换，使用 OkHttp3实现
- * @author      Rebyrd
- * @createDate  2023/04/04
- * @version     v0.10
+ * @projectName     WeChat
+ * @package         com.WeChat
+ * @className:      MsgService
+ * @description     网络服务，用于与后端进行数据交换，使用 OkHttp3实现
+ * @author          Rebyrd
+ * @recentModify    2023/04/04
+ * @version         v0.10
  */
 public class MsgService extends Service {
 

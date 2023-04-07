@@ -33,13 +33,13 @@ import okhttp3.Cookie;
 import okhttp3.Response;
 
 /**
- * @projectName WeChat
- * @package     com.WeChat
- * @className:  Context
- * @description 聊天界面
- * @author      Rebyrd
- * @createDate  2023/04/04
- * @version     v0.10
+ * @projectName     WeChat
+ * @package         com.WeChat
+ * @className:      Context
+ * @description     聊天界面
+ * @author          Rebyrd
+ * @recentModify    2023/04/04
+ * @version         v0.10
  */
 public class Context extends AppCompatActivity implements View.OnClickListener{
     private TextView name;

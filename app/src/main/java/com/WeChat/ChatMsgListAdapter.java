@@ -19,13 +19,13 @@ import com.WeChat.ChatMsgPool.ChatMsg;
 import java.util.ArrayList;
 
 /**
- * @projectName WeChat
- * @package     com.WeChat
- * @className:  ChatMsgListAdapter
- * @description 聊天界面的数据适配器（ListView）
- * @author      Rebyrd
- * @createDate  2023/04/04
- * @version     v0.10
+ * @projectName     WeChat
+ * @package         com.WeChat
+ * @className:      ChatMsgListAdapter
+ * @description     聊天界面的数据适配器（ListView）
+ * @author          Rebyrd
+ * @recentModify    2023/04/04
+ * @version         v0.10
  */
 public class ChatMsgListAdapter extends BaseAdapter {
 

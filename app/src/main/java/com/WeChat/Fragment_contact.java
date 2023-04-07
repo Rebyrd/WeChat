@@ -27,13 +27,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @projectName WeChat
- * @package     com.WeChat
- * @className:  Fragment_concat
- * @description 通讯录界面
- * @author      Rebyrd
- * @createDate  2021/10/25
- * @version     v0.02
+ * @projectName     WeChat
+ * @package         com.WeChat
+ * @className:      Fragment_concat
+ * @description     通讯录界面
+ * @author          Rebyrd
+ * @recentModify    2021/10/25
+ * @version         v0.02
  */
 public class Fragment_contact extends Fragment implements View.OnClickListener,View.OnFocusChangeListener{
 

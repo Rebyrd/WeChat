@@ -15,13 +15,13 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 
 /**
- * @projectName WeChat
- * @package     com.WeChat
- * @className:  ChatMsgPool
- * @description 运行时 信息缓存池
- * @author      Rebyrd
- * @createDate  2023/04/04
- * @version     v0.10
+ * @projectName     WeChat
+ * @package         com.WeChat
+ * @className:      ChatMsgPool
+ * @description     运行时 信息缓存池
+ * @author          Rebyrd
+ * @recentModify    2023/04/04
+ * @version         v0.10
  */
 public class ChatMsgPool {
 

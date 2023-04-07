@@ -4,7 +4,7 @@
    * [java源码](app/src/main/java/com/WeChat/)
       **界面实现**
    
-      + [MainActivity.java](app/src/main/java/com/WeChat/MainActivity.java) 为主控Activity
+      + [MainActivity](app/src/main/java/com/WeChat/MainActivity.java) 为主控Activity
     
       + [Fragment_message](app/src/main/java/com/WeChat/Context.java) 为message Tab的Fragment 用于展示消息页面
          - [RecycleAdpater](app/src/main/java/com/WeChat/RecycleAdpater.java) 为message Fragment 的 实现逻辑，内涵 弹框对条目的处理逻辑

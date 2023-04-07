@@ -7,13 +7,13 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @projectName WeChat
- * @package     com.WeChat
- * @className:  Contact
- * @description 好友信息，（全局静态公用）
- * @author      Rebyrd
- * @createDate  2023/04/04
- * @version     v0.10
+ * @projectName     WeChat
+ * @package         com.WeChat
+ * @className:      Contact
+ * @description     好友信息，（全局静态公用）
+ * @author          Rebyrd
+ * @recentModify    2023/04/04
+ * @version         v0.10
  */
 public final class Contact {
 
