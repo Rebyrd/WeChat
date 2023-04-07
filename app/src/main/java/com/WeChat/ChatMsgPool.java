@@ -63,6 +63,9 @@ public class ChatMsgPool {
         }
     });
 
+    /**
+     * 这里可以替换为SQLite读取
+     */
     static {
 
         // 测试 预设信息
@@ -133,6 +136,7 @@ public class ChatMsgPool {
     @Override
     protected void finalize() throws Throwable {
         processor.stop();
+        save();
         super.finalize();
     }
 
@@ -156,8 +160,8 @@ public class ChatMsgPool {
 
     public ArrayList<ChatMsg> getSession(String UID){return msgPool.get(UID);}
 
+    // 可以设置为保存到SQLite
     public boolean save() {
-
         return true;
     }
 
