@@ -6,14 +6,258 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <TextView
-        android:id="@+id/txt_fragment_concat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="联系人"
-        android:textColor="@color/color_common"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_contact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/side_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/index_A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="A"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_B"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="B"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_C"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="C"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_D"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="D"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_E"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="E"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_F"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="F"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_G"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="G"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_H"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="H"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_I"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="I"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_J"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="J"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_K"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="K"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_L"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="L"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_M"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="M"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_N"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="N"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_O"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="O"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_P"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="P"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_Q"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="Q"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_R"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="R"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_S"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="S"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_T"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="T"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_U"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="U"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_V"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="V"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_W"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="W"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_X"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="X"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_Y"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="Y"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/index_Z"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner"
+            android:gravity="center"
+            android:text="Z"
+            android:textSize="12dp" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

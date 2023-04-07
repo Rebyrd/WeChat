@@ -17,10 +17,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
@@ -36,10 +34,10 @@ import java.util.Map;
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHolder> {
 
     private Context context;
+    private RecyclerView recyclerView;
     // item资源文件
     private int itemRes;
     private Map<String, List<Object>> resource;
-    private Field mPopupField;
     // 触控坐标（相对于item控件）
     private float[] toPosition =new float[2];
     // 菜单对象
@@ -63,13 +61,15 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
             return true;
         }
     };
+
     // 点击事件 （实现跳转到特定 Activity）
     private View.OnClickListener onClickListener=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent intent=new Intent();
             intent.setClass(context, com.WeChat.Context.class);
-            intent.putExtra("name",((TextView)view.findViewById(R.id.item_name)).getText());
+            int index = recyclerView.indexOfChild(view);
+            intent.putExtra("UID", (String) resource.get("UID").get(index));
             context.startActivity(intent);
         }
     };
@@ -90,17 +90,12 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
      * @param itemRes item资源文件
      * @param resource item内容
      */
-    public RecycleAdapter(Context context, int itemRes, Map<String, List<Object>> resource) {
+    public RecycleAdapter(Context context,RecyclerView recyclerView, int itemRes, Map<String, List<Object>> resource) {
         this.context = context;
         this.itemRes = itemRes;
         this.resource=resource;
+        this.recyclerView = recyclerView;
         popMenu =new PopMenu(context);
-        try {
-            mPopupField = PopupMenu.class.getDeclaredField("mPopup");
-            mPopupField.setAccessible(true);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     @NonNull
@@ -171,7 +166,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
      */
     public void moveItem(int fromPosition,int toPosition) {
         if(fromPosition < resource.get("name").size()&&toPosition < resource.get("name").size()){
-
             resource.get("name").add(toPosition,resource.get("name").get(fromPosition));
             resource.get("context").add(toPosition,resource.get("context").get(fromPosition));
             resource.get("image").add(toPosition,resource.get("image").get(fromPosition));
@@ -209,7 +203,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
             name = (TextView) itemView.findViewById(R.id.item_name);
             context = (TextView) itemView.findViewById(R.id.item_context);
             time = (TextView) itemView.findViewById(R.id.item_time);
-            imageView=(ImageView) itemView.findViewById(R.id.item_image);
+            imageView=(ImageView) itemView.findViewById(R.id.item_image_message);
         }
     }
 
@@ -250,7 +244,10 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
                         textView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                RecycleAdapter.this.deleteItem(((RecyclerView)anchorView.getParent()).getChildLayoutPosition(anchorView));
+                                int index = ((RecyclerView)anchorView.getParent()).getChildLayoutPosition(anchorView);
+                                Contact.getInfoByUID((String)resource.get("UID").get(index)).put("show",false);
+                                RecycleAdapter.this.deleteItem(index);
+                                resource.get("UID").remove(index);
                                 popupWindow.dismiss();
                             }
                         });
@@ -260,8 +257,13 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
                         textView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                int index = ((RecyclerView)anchorView.getParent()).getChildLayoutPosition(anchorView);
+                                setTop(index);
 
-                                setTop(((RecyclerView)anchorView.getParent()).getChildLayoutPosition(anchorView));
+                                List<Object> UIDs = resource.get("UID");
+                                UIDs.add(0,UIDs.get(index));
+                                UIDs.remove(index+1);
+
                                 popupWindow.dismiss();
                             }
                         });

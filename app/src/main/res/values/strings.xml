@@ -24,7 +24,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <string name="not_found">not found</string>
-    <string name="lost_time">1月1日</string>
+    <string name="last_time">1970年01月01日</string>
     <string name="appbar_scrolling_view_behavior">add a swiper for item.</string>
 
 </resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:width="16dp"
+        android:height="16dp"
+        android:gravity="right"
+        android:top="6dp">
+        <rotate
+            android:fromDegrees="45"
+            android:pivotX="15%"
+            android:pivotY="-35%">
+            <shape android:shape="rectangle">
+                <size
+                    android:width="16dp"
+                    android:height="16dp" />
+                <solid android:color="@color/chat_bubble_color" />
+                <corners android:topRightRadius="2dp"/>
+            </shape>
+        </rotate>
+
+
+    </item>
+
+    <item
+        android:right="15dp">
+        <shape
+            android:shape="rectangle">
+            <solid android:color="@color/chat_bubble_color" />
+            <corners android:radius="6dp" />
+        </shape>
+    </item>
+
+</layer-list>

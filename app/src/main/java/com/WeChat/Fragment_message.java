@@ -1,5 +1,8 @@
 package com.WeChat;
 
+import static com.WeChat.ChatMsgPool.ChatMsg.formatDate;
+import static com.WeChat.ChatMsgPool.getGlobalInstance;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -11,21 +14,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.WeChat.ChatMsgPool.ChatMsg;
+import com.WeChat.ChatMsgPool.Observer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * @projectName WeChat
- * @package     com.WeChat
- * @className:  Fragment_message
+ * @package com.WeChat
+ * @className: Fragment_message
  * @description 消息界面
- * @author      Rebyrd
- * @createDate  2021/10/25
- * @version     v0.02
+ * @author Rebyrd
+ * @createDate 2023/4/4
+ * @version v0.10
  */
-public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView recyclerView;
     private RecycleAdapter recycleAdapter;
@@ -33,13 +40,45 @@ public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnR
 
     // recyclerView的item内容
     private Map<String, List<Object>> resource;
+    private Observer observer = new Observer() {
+        @Override
+        public void execute(ChatMsg msg) {
+            String UID = msg.getOrigin() == ChatMsg.Origin.REMOTE ? msg.getUID_sender() : msg.getUID_recipent();
 
-    public RecyclerView getRecyclerView() {
-        return recyclerView;
-    }
+            Map<String, Object> info = Contact.getInfoByUID(UID);
+            if (info != null) {
+                if (!(Boolean) Contact.getInfoByUID(UID).get("show") || (Integer) info.get("msg_count") == 1) {
+                    Contact.getInfoByUID(UID).put("show", true);
+                    resource.get("UID").add(0, UID);
+                    MainActivity.runOnUIThread(() -> {
+                        recycleAdapter.insertItem((String) info.get("name"), msg.getText(), (int) info.get("header"), formatDate(msg.getDate()), 0);
+                        recyclerView.smoothScrollToPosition(0);
+                    });
+                } else {
+                    // runOnUiThread 会导致异步处理消息，因此强行将所有处理扔到UI线程执行（UI线程里面有Looper轮询，会重新同步数据处理）
+                    MainActivity.runOnUIThread(() -> {
+                        int index = resource.get("UID").indexOf(UID);
+                        resource.get("context").set(index, foldString(msg.getText(), 25));
+                        resource.get("time").set(index, formatDate(msg.getDate()));
+
+                        if (index != 0) {
+                            recycleAdapter.setTop(index);
+                            List<Object> UIDs = resource.get("UID");
+                            UIDs.add(0, UIDs.get(index));
+                            UIDs.remove(index + 1);
+                        }
+                        recycleAdapter.notifyItemChanged(0);
+                    });
+
+                }
+            }
+        }
+    };
+
     public RecycleAdapter getRecycleAdapter() {
         return recycleAdapter;
     }
+
     public Map<String, List<Object>> getResource() {
         return resource;
     }
@@ -49,56 +88,50 @@ public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnR
         initItem();
     }
 
-    public void initItem(){
-        resource=new HashMap<>();
-        resource.put("name",new ArrayList<Object>(){{
-            add("路飞");
-            add("鸣人");
-            add("黑崎一护");
-            add("黑子哲也");
-            add("齐木楠雄");
-            add("黑神目泷");
-            add("日向翔阳");
-            add("贝鲁");
-        }});
-        resource.put("context",new ArrayList<Object>(){{
-            add("如果放弃我终生遗憾");
-            add("不懂得重视同伴的人，是最最差劲的废物！");
-            add("正是因为我们看不见,那才可怕。");
-            add("虽然我是影子，但是光越强影就越浓。");
-            add("不管是失败者多么厉害，都是赢家更夺人眼球。");
-            add("不如说少年漫画对于我这样肤浅的人来说过于高深了。因为少年漫画教给读者的并不是友情、努力、胜利，而是有能力的人才能笑到最后，这样极其残酷的现实。因为有能力所以能交到朋友，因为有能力所以能努力，因为有能力所以能得到胜利。这样绝望的现实，我作为有能力的人都难以忍受啊！");
-            add("你,如果是君临球场的王者的话,我会打倒你,成为站在球场上时间最长的人!");
-            add("哒噗");
+    public void initItem() {
+        ChatMsgPool msgPool = getGlobalInstance();
+
+        ArrayList<Object> UIDs = new ArrayList<Object>();
+        ArrayList<Object> name = new ArrayList<Object>();
+        ArrayList<Object> context = new ArrayList<Object>() {
+            @Override
+            public boolean add(Object o) {
+                if (null != o && ((String) o).length() > 22)
+                    o = ((String) o).substring(0, 22) + "···";
+                return super.add(o);
+            }
+        };
+        ArrayList<Object> header = new ArrayList<Object>();
+        ArrayList<Object> date = new ArrayList<Object>();
+
+        for (String UID : Contact.getKeys()) {
+            ArrayList<ChatMsg> msgList = msgPool.getSession(UID);
+            if (msgList != null && msgList.size() > 0 && (Boolean)Contact.getInfoByUID(UID).get("show")) {
+                ChatMsg msg = msgList.get(msgList.size() - 1);
+                UIDs.add(UID);
+                name.add(Contact.getInfoByUID(UID).get("name"));
+                context.add(msg.getText());
+                header.add(Contact.getInfoByUID(UID).get("header"));
+                date.add(formatDate(msg.getDate()));
+            }
         }
-        /**
-         * 该内容长度限定
-         */
-        @Override
-        public boolean add(Object o) {
-            if(null!=o&&((String)o).length()>22)o=((String)o).substring(0,22)+"···";
-            return super.add(o);
-        }});
-        resource.put("image",new ArrayList<Object>(){{
-            add(R.mipmap.lufei);
-            add(R.mipmap.mingren);
-            add(R.mipmap.heizi);
-            add(R.mipmap.yihu);
-            add(R.mipmap.qimu);
-            add(R.mipmap.meishen);
-            add(R.mipmap.xiangyang);
-            add(R.mipmap.beilu);
-        }});
-        resource.put("time",new ArrayList<Object>(){{
-            add("12:10");
-            add("12:00");
-            add("11:43");
-            add("11:40");
-            add("10:32");
-            add("13:12");
-            add("12:36");
-            add("10:57");
-        }});
+
+        resource = new HashMap<>();
+        resource.put("UID", UIDs);
+        resource.put("name", name);
+        resource.put("context", context);
+        resource.put("image", header);
+        resource.put("time", date);
+
+        // 绑定消息池观察对象
+        getGlobalInstance().attachObserver(observer);
+    }
+
+    @Override
+    public void onDestroy() {
+        // 解绑消息池观察对象
+        getGlobalInstance().detachObserver(observer);
+        super.onDestroy();
     }
 
     @Override
@@ -107,22 +140,18 @@ public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnR
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_message, container, false);
 
-        // 初始化recycleAdapter
-        recycleAdapter=new RecycleAdapter(view.getContext(),R.layout.recycle_item,resource);
 
         // 初始化recyclerView
-        RecyclerView recyclerView=view.findViewById(R.id.recyclerView_message);
+        recyclerView = view.findViewById(R.id.recyclerView_message);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        // 初始化recycleAdapter
+        recycleAdapter = new RecycleAdapter(view.getContext(),recyclerView, R.layout.recycle_message_item, resource);
         recyclerView.setAdapter(recycleAdapter);
 
         // 设置swipeRefresh区域
-        swipeRefreshLayout=view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
-
-        // 添加空白内容（为了看到recyclerView的刷新）
-        for(int i=0;i<4;i++){
-            recycleAdapter.insertItem(null,null,0,null,-1);
-        }
         return view;
     }
 
@@ -133,13 +162,20 @@ public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         // 动态刷新时间 ms
-        int delay=2000;
+        int delay = 2000;
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(false);
             }
-        },delay);
+        }, delay);
     }
+
+    public static String foldString(String str,int length){
+        if (((String) str).length() > length - 3)
+            str = ((String) str).substring(0, length -3) + "···";
+        return str;
+    }
+
 }

@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.21822916666666667" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/avatar_1.xml" value="0.24444444444444444" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/border.xml" value="0.21145833333333333" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/ic__kenan.xml" value="0.23489583333333333" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/ic_concat.xml" value="0.37222222222222223" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/ic_config.xml" value="0.37222222222222223" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/ic_find.xml" value="0.37222222222222223" />
@@ -18,17 +20,22 @@
         <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/ic_outline_account_box_24.xml" value="0.37222222222222223" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/ic_outline_message_24.xml" value="0.37222222222222223" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/ic_round_message_24.xml" value="0.37222222222222223" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/kenan_foreground.xml" value="0.23489583333333333" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/mingren_background.xml" value="0.21822916666666667" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/round_corner.xml" value="0.21822916666666667" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/drawable/xiangyang_background.xml" value="0.3712962962962963" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/activity_context.xml" value="0.3619791666666667" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/blank_fragment.xml" value="0.3619791666666667" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/bottom.xml" value="0.33" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/chat_item_left.xml" value="0.25" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/chat_item_right.xml" value="0.27395833333333336" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/content_main.xml" value="0.3242753623188406" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/demo.xml" value="0.3619791666666667" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/fragment_blank.xml" value="0.3619791666666667" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/fragment_concat.xml" value="0.20208333333333334" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/fragment_config.xml" value="0.33" />
-        <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/fragment_contact.xml" value="0.3619791666666667" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/fragment_contact.xml" value="0.33" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/fragment_faxian.xml" value="0.3242753623188406" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/fragment_find.xml" value="0.20208333333333334" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/fragment_first.xml" value="0.33" />
@@ -44,17 +51,24 @@
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/menu.xml" value="0.20208333333333334" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/menu_item.xml" value="0.3619791666666667" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/popupmenu.xml" value="0.20208333333333334" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/recycle_contact_header_item.xml" value="0.3619791666666667" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/recycle_contact_item.xml" value="0.5" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/recycle_contact_normal_item.xml" value="0.3619791666666667" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/recycle_item.xml" value="0.20208333333333334" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/recycle_message_item.xml" value="0.5" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/swiper.xml" value="0.20260416666666667" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/layout/top.xml" value="0.25" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/menu/menu_main.xml" value="0.28802083333333334" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/menu/popupmenu.xml" value="0.20208333333333334" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/mipmap-anydpi-v26/beilu.xml" value="0.23489583333333333" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/mipmap-anydpi-v26/heishen.xml" value="0.36203703703703705" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/mipmap-anydpi-v26/heizi.xml" value="0.21822916666666667" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.37222222222222223" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21822916666666667" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/mipmap-anydpi-v26/lufei.xml" value="0.21822916666666667" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/mipmap-anydpi-v26/mingren.xml" value="0.21822916666666667" />
         <entry key="..\:/project/Android/WeChat/app/src/main/res/mipmap-mdpi/ic_launcher.xml" value="0.21822916666666667" />
+        <entry key="..\:/project/Android/WeChat/app/src/main/res/mipmap-xxxhdpi/ceshi.xml" value="0.23489583333333333" />
       </map>
     </option>
   </component>

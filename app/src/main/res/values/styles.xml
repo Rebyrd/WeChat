@@ -4,4 +4,30 @@
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
+
+    <style name="chat_bubble_left_style">
+        <item name="android:background">@drawable/chat_bubble_left</item>
+        <item name="android:paddingLeft">25dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+    <style name="chat_bubble_right_style">
+        <item name="android:background">@drawable/chat_bubble_right</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">25dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+    <style name="chat_text_date_style">
+        <item name="android:background">@drawable/chat_date</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
+    <style name="chat_avatar_style">
+        <item name="android:background">@drawable/chat_avatar</item>
+        <item name="android:foreground">@drawable/chat_avatar_fore</item>
+    </style>
 </resources>

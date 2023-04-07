@@ -1,11 +1,14 @@
 package com.WeChat;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -31,10 +34,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // 当前选中共的tab的linerLayout的ID
     private int currentID;
+    private Intent service;
+    private static MainActivity self;
 
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        self = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // 构造tab对象
@@ -52,6 +58,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 初始化 tab管理器
         managerTab =new ManagerTab(R.id.content, Arrays.asList(message,contact,find,config),getSupportFragmentManager());
         managerTab.initManagerTab();
+
+        service = new Intent(this,MsgService.class);
+        startService(service);
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopService(service);
+        super.onDestroy();
     }
 
     @Override
@@ -254,4 +269,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentTab=tab;
         }
     }
+
+    static final void runOnUIThread(Runnable action){self.runOnUiThread(action);}
+
 }

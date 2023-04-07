@@ -13,6 +13,9 @@
     <color name="mainBackground">#FFFFFF</color>
     <color name="menuBackground">@color/mainBackground</color>
     <!--#FF418E44-->
+    <color name="sideSelected">#8685B2B8</color>
+    <color name="header">#E1E1E1</color>
+    <color name="sideUnselected">#00FFFFFF</color>
     <color name="color_selected">#7F0500CA</color>
     <color name="color_common">#6A6A6A</color>
     <color name="light_blue_600">#FF039BE5</color>
@@ -20,4 +23,10 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+
+    <color name="chat_bubble_color">#6BCA5A</color>
+    <!--    <color name="chat_date_background_color">#C3B5B5B5</color>-->
+    <color name="chat_date_background_color">#00000000</color>
+
 </resources>
