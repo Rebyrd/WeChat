@@ -33,7 +33,7 @@ public class ChatMsgListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<ChatMsg> sessionMsg;
 
-    public ChatMsgListAdapter(Context context,String UID) {
+    public ChatMsgListAdapter(Context context, String UID) {
         this.UID = UID;
         mInflater = LayoutInflater.from(context);
         sessionMsg = getGlobalInstance().getSession(UID);
@@ -112,12 +112,19 @@ public class ChatMsgListAdapter extends BaseAdapter {
             viewHolder.tvUserHeader.setImageResource((Integer) Contact.getInfoByUID(UID).get("header"));
         }else {
             viewHolder.tvWaiting = (ImageView) convertView.findViewById(R.id.waiting);
+
+            // 清空动画
+            if(viewHolder.objectAnimator != null){
+                viewHolder.objectAnimator.end();
+                viewHolder.objectAnimator=null;
+            }
             switch (msg.getStatus()){
                 case ERROR:
                     viewHolder.tvWaiting.setImageResource(R.drawable.ic_error);
                     viewHolder.tvWaiting.setVisibility(View.VISIBLE);
                     break;
                 case WAITING:
+                    viewHolder.tvWaiting.setImageResource(R.drawable.ic_loding);
                     viewHolder.startWaitingAnim();
                     break;
                 case SUCCESSFUL:
@@ -140,32 +147,43 @@ public class ChatMsgListAdapter extends BaseAdapter {
         public TextView tvUserName;
         public TextView tvContent;
         public ImageView tvUserHeader;
-        public ImageView tvWaiting = null;
-        public int position;
+        public ImageView tvWaiting;
+        public ObjectAnimator objectAnimator = null;
 
-        ObjectAnimator objectAnimator;
+        public int position;
 
         // 开启等待动画
         public void startWaitingAnim() {
-            tvWaiting.setVisibility(View.VISIBLE);
-            objectAnimator = ObjectAnimator.ofFloat(tvWaiting, "rotation", 0.0f, 360.0f);
-            //设置动画时间
-            objectAnimator.setDuration(2000);
-            //设置动画重复次数，这里-1代表无限
-            objectAnimator.setRepeatCount(Animation.INFINITE);
-            //设置动画循环模式。
-            objectAnimator.setRepeatMode(ValueAnimator.RESTART);
-            objectAnimator.start();
+            if(objectAnimator == null) {
+                tvWaiting.setVisibility(View.VISIBLE);
+                objectAnimator = ObjectAnimator.ofFloat(tvWaiting, "rotation", 0.0f, 360.0f);
+                //设置动画时间
+                objectAnimator.setDuration(2000);
+                //设置动画重复次数，这里-1代表无限
+                objectAnimator.setRepeatCount(Animation.INFINITE);
+                //设置动画循环模式。
+                objectAnimator.setRepeatMode(ValueAnimator.RESTART);
+                objectAnimator.start();
+            }
         }
 
         // 关闭等待信号
         public void stopWaitingAnim(boolean isError) {
-            objectAnimator.cancel();
-            if (isError) {
-                tvWaiting.setImageResource(R.drawable.ic_error);
-            } else {
-                tvWaiting.setVisibility(View.GONE);
+            if(objectAnimator != null) {
+                objectAnimator.end();
+                objectAnimator = null;
+                if (isError)
+                    tvWaiting.setImageResource(R.drawable.ic_error);
+                else
+                    tvWaiting.setVisibility(View.GONE);
             }
+        }
+
+        @Override
+        protected void finalize() throws Throwable {
+            if(objectAnimator != null)
+                objectAnimator.cancel();
+            super.finalize();
         }
     }
 }

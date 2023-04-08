@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ import okhttp3.Response;
  * @version         v0.10
  */
 public class Context extends AppCompatActivity implements View.OnClickListener{
+    private static Context self;
     private TextView name;
 
     private Button send;
@@ -70,7 +72,7 @@ public class Context extends AppCompatActivity implements View.OnClickListener{
     private Observer observer = new Observer() {
         @Override
         public void execute(ChatMsg msg) {
-            if(msg.getUID_sender().equals(UID) || msg.getUID_recipent().equals(UID)){
+            if(msg.getUID_sender().equals(UID)){
                 // 滚动到最新消息
                 MainActivity.runOnUIThread(()->{
                     chatMsgListAdapter.notifyDataSetChanged();
@@ -110,6 +112,8 @@ public class Context extends AppCompatActivity implements View.OnClickListener{
 
         // 绑定消息池观察对象
         getGlobalInstance().attachObserver(observer);
+        // 初始化完成后，提供给全局
+        self = this;
     }
 
     @Override
@@ -117,6 +121,8 @@ public class Context extends AppCompatActivity implements View.OnClickListener{
         // 解绑消息池观察对象
         getGlobalInstance().detachObserver(observer);
         unbindService(conn);
+        self = null;
+        Log.d("Context onDestory","called");
         super.onDestroy();
     }
 
@@ -132,24 +138,23 @@ public class Context extends AppCompatActivity implements View.OnClickListener{
         msg.setStatus(ChatMsg.Status.WAITING);
         getGlobalInstance().addSendMsg(msg);
 
+        chatMsgListAdapter.notifyDataSetChanged();
+        listView.setSelection(listView.getBottom());
+
         postBinder.post(Contact.getmUID(), UID, message, date, new Callback() {
             private int index = getGlobalInstance().getSession(UID).indexOf(msg);
 
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 msg.setStatus(ChatMsg.Status.ERROR);
-                View parent = listView.getChildAt(index);
-                if(parent!=null)
-                    ((ChatMsgListAdapter.ViewHolder) parent.getTag()).stopWaitingAnim(true);
+                stopAnim(index,true);
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 boolean isError = !response.isSuccessful();
                 msg.setStatus(isError? ChatMsg.Status.ERROR: ChatMsg.Status.SUCCESSFUL);
-                View parent = listView.getChildAt(index);
-                if(parent!=null)
-                    ((ChatMsgListAdapter.ViewHolder) parent.getTag()).stopWaitingAnim(isError);
+                stopAnim(index,isError);
             }
         });
 
@@ -157,7 +162,19 @@ public class Context extends AppCompatActivity implements View.OnClickListener{
         input.setText("");
     }
 
-    public String getUID() {
-        return UID;
+    public void stopAnim(int index,boolean isError){
+        if(self != null) {
+            MainActivity.runOnUIThread(() -> {
+                View parent = self.listView.getChildAt(index);
+                if (parent != null)
+                    ((ChatMsgListAdapter.ViewHolder) parent.getTag()).stopWaitingAnim(isError);
+
+            });
+        }
     }
+
+    public String getUID() {return UID;}
+
+    // 向外部提供全局唯一对象
+    public static Context getGlobalContext(){return self;}
 }

@@ -58,7 +58,7 @@ public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnR
                     // runOnUiThread 会导致异步处理消息，因此强行将所有处理扔到UI线程执行（UI线程里面有Looper轮询，会重新同步数据处理）
                     MainActivity.runOnUIThread(() -> {
                         int index = resource.get("UID").indexOf(UID);
-                        resource.get("context").set(index, foldString(msg.getText(), 25));
+                        resource.get("context").set(index, foldStringByCharLength(msg.getText(), 40));
                         resource.get("time").set(index, formatDate(msg.getDate()));
 
                         if (index != 0) {
@@ -96,9 +96,9 @@ public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnR
         ArrayList<Object> context = new ArrayList<Object>() {
             @Override
             public boolean add(Object o) {
-                if (null != o && ((String) o).length() > 22)
-                    o = ((String) o).substring(0, 22) + "···";
-                return super.add(o);
+//                if (null != o && ((String) o).length() > 22)
+//                    o = ((String) o).substring(0, 22) + "···";
+                return super.add(foldStringByCharLength((String)o,40));
             }
         };
         ArrayList<Object> header = new ArrayList<Object>();
@@ -176,6 +176,24 @@ public class Fragment_message extends Fragment implements SwipeRefreshLayout.OnR
         if (((String) str).length() > length - 3)
             str = ((String) str).substring(0, length -3) + "···";
         return str;
+    }
+
+    public static String foldStringByCharLength(String str,int length){
+        int len = str.length();
+        length -= 3;
+        int index = 0;
+        for(;index<len;index++){
+            char ch = str.charAt(index);
+            if(ch < 0x4E00 || ch > 0x9FA5) // 判断是不是汉字
+                length--;
+            else
+                length -= 2;
+            if(length<0)break;
+        }
+        if(length <0)
+            return ((String) str).substring(0,index) + "...";
+        else
+            return str;
     }
 
 }

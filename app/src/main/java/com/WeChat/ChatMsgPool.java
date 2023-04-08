@@ -157,6 +157,7 @@ public class ChatMsgPool {
 
     public boolean attachObserver(Observer ob){return observers.add(ob);}
     public boolean detachObserver(Observer ob){return observers.remove(ob);}
+    public boolean inWaitingQueue(ChatMsg msg){return waiting_processor_queue.contains(msg);}
 
     public ArrayList<ChatMsg> getSession(String UID){return msgPool.get(UID);}
 
